@@ -1,0 +1,30 @@
+*{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+:root{
+	--cells: 10;
+}
+body{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	background-color: #101010;
+}
+.game{
+	background-color: inherit;
+	display: grid;
+	grid-template-columns: repeat(var(--cells), 1fr);
+	grid-template-rows: repeat(var(--cells), 1fr);
+	width: 100vmin;
+	height: 100vmin;
+}
+.game > div {
+	width: 100%;
+	height: 100%;
+	border-radius: 10%;
+	border: 1px solid white;
+	background-color: inherit;
+}
