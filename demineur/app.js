@@ -13,6 +13,7 @@ let cases = [
 ];
 let bombsCount = 0;
 
+
 const init = () => {
 	console.log("initializing...");
 	game.innerHTML = null;
@@ -24,18 +25,13 @@ const init = () => {
 			let x = i % 10;
 			cases[y][x] = -1;
 			bombsCount++
-		}
+			div.addEventListener('click', init());
+		} else div.addEventListener('click', reveal());
 		game.appendChild(div);
 		console.clear();
 		console.log(bombsCount);
 		console.log(cases);
 	}
-	const bombs = document.querySelectorAll('.bombs')
-	console.log(bombs);
-
-	bombs.forEach(bomb => {
-		bomb.addEventListener('click', init());
-	});
 }
 
 init();
