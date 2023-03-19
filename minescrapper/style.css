@@ -39,6 +39,14 @@ body{
 	inset: 1px;
 }
 
+.revealed {
+	z-index: 100;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	text-justify: auto;
+}
+
 .revealed::before{
 	content: "";
 	background-color: #151a1c;

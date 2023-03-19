@@ -16,7 +16,6 @@ let bombsCount = 0;
 const reveal = el => {
   el.classList.replace("masked", "revealed");
 	el.removeEventListener('click', () => {
-		console.log('clicked');
 		reveal(el);
 	});
 }
@@ -39,7 +38,6 @@ const init = () => {
 			});
 		} else{
 			div.addEventListener('click', () => {
-				console.log('clicked');
 				reveal(div);
 			});
 			div.dataset.x = x;
@@ -58,17 +56,15 @@ notBombs.forEach(e => {
 	const y =  Number(e.dataset.y);
 	const x = Number(e.dataset.x);
 	let bombAround = 0;
-	console.log(`Looking around cases[${y}][${x}]`)
 	for(let i = -1; i<=1;i++){
 		for(let j = -1; j<=1;j++){
 			if (cases[y+i] != undefined){
 				if (cases[y+i][x+j] != undefined){
-					console.log(`Current testing cases[${y+i}][${x+j}]`);
 					if (cases[y+i][x+j] === -1) bombAround++;
 			}
 			}
 		}
 	}
 	e.dataset.bombAround = bombAround;
-	e.innerText = `${bombAround}`
+	e.before.innerText = `${bombAround}`;
 })
