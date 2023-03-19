@@ -61,7 +61,6 @@ const init = () => {
 			}
 		}
 		e.dataset.bombAround = bombAround;
-		e.innerText = `${bombAround}`;
 	})
 
 	setInterval(() => {
