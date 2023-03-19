@@ -1,69 +1,74 @@
 const game = document.querySelector('.game');
 let cases = [
-	[0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0]
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
-const colors = ['white','blue', 'green', 'steelblue', 'purple', 'yellow', 'lightcoral', 'pink', 'brown']
+const colors = ['white', 'blue', 'green', 'steelblue', 'purple', 'yellow', 'lightcoral', 'pink', 'brown']
 let bombsCount = 0;
 
 const reveal = el => {
-  el.classList.replace("masked", "revealed");
+	el.classList.replace("masked", "revealed");
 	el.style.setProperty("--bg-color", colors[el.dataset.bombAround]);
 }
 
 const init = () => {
 	game.innerHTML = null;
-	for(let i = 0; i < 100; i++){
+	for (let i = 0; i < 100; i++) {
 		const div = document.createElement("div");
 		div.classList.add('masked')
 		div.dataset.index = i;
-		const y = (Math.floor(i / 10) > i / 10) ? Math.floor(i/10) - 1 : Math.floor(i/10);
+		const y = (Math.floor(i / 10) > i / 10) ? Math.floor(i / 10) - 1 : Math.floor(i / 10);
 		const x = i % 10;
-		if (Math.floor(Math.random()*10) === 1) {
+		if (Math.floor(Math.random() * 10) === 1) {
 			div.classList.add('bomb');
 			cases[y][x] = -1;
 			bombsCount++
 			div.addEventListener('click', () => {
-				alert("Game Over");
+				alert("💣 Game Over 💣");
 				init();
 			});
-		} else{
+		} else {
 			div.addEventListener('click', () => {
 				reveal(div);
 			});
 			div.dataset.x = x;
 			div.dataset.y = y;
-		} 
-	game.appendChild(div);
+		}
+		game.appendChild(div);
 	}
-}
-init();
+	const divs = document.querySelectorAll(".masked");
+	const notBombs = Array.from(divs).filter(el => !el.classList.contains("bomb"));
 
-const divs = document.querySelectorAll(".masked");
-const notBombs = Array.from(divs).filter(el => !el.classList.contains("bomb"));
-
-let a = 0;
-notBombs.forEach(e => {
-	const y =  Number(e.dataset.y);
-	const x = Number(e.dataset.x);
-	let bombAround = 0;
-	for(let i = -1; i<=1;i++){
-		for(let j = -1; j<=1;j++){
-			if (cases[y+i] != undefined){
-				if (cases[y+i][x+j] != undefined){
-					if (cases[y+i][x+j] === -1) bombAround++;
-			}
+	notBombs.forEach(e => {
+		const y = Number(e.dataset.y);
+		const x = Number(e.dataset.x);
+		let bombAround = 0;
+		for (let i = -1; i <= 1; i++) {
+			for (let j = -1; j <= 1; j++) {
+				if (cases[y + i] != undefined) {
+					if (cases[y + i][x + j] != undefined) {
+						if (cases[y + i][x + j] === -1) bombAround++;
+					}
+				}
 			}
 		}
-	}
-	e.dataset.bombAround = bombAround;
-	e.innerText = `${bombAround}`;
-})
+		e.dataset.bombAround = bombAround;
+		e.innerText = `${bombAround}`;
+	})
+
+	setInterval(() => {
+		const masked = document.querySelectorAll(".masked");
+		if (Array.from(masked).length === bombsCount) {
+			alert('Congrats, you found all the bombs!')
+		}
+	}, 100);
+}
+init();
