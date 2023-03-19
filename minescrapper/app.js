@@ -1,5 +1,5 @@
 const game = document.querySelector('.game');
-let cases = [
+let casesValues = [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -29,7 +29,7 @@ const init = () => {
 		const x = i % 10;
 		if (Math.floor(Math.random() * 10) === 1) {
 			div.classList.add('bomb');
-			cases[y][x] = -1;
+			casesValues[y][x] = -1;
 			bombsCount++
 			div.addEventListener('click', () => {
 				alert("💣 Game Over 💣");
@@ -53,9 +53,9 @@ const init = () => {
 		let bombAround = 0;
 		for (let i = -1; i <= 1; i++) {
 			for (let j = -1; j <= 1; j++) {
-				if (cases[y + i] != undefined) {
-					if (cases[y + i][x + j] != undefined) {
-						if (cases[y + i][x + j] === -1) bombAround++;
+				if (casesValues[y + i] != undefined) {
+					if (casesValues[y + i][x + j] != undefined) {
+						if (casesValues[y + i][x + j] === -1) bombAround++;
 					}
 				}
 			}
