@@ -40,6 +40,7 @@ body{
 }
 
 .revealed {
+	--bg-color: #151a1c;
 	z-index: 100;
 	font-size: 15px;
 	color: white;
@@ -49,9 +50,55 @@ body{
 
 .revealed::before{
 	content: "";
-	background-color: #151a1c;
+	background-color: var(--bg-color);
 	position: absolute;
 	inset: 1px;
+}
+
+.t0{
+	color: white;
+}
+.t1{
+	color: blue;
+}
+.t2{
+	color: green;
+}
+.t3{
+	color: steelblue;
+}
+.t4{
+	color: purple;
+}
+.t5{
+	color: yellow;
+}
+.t6{
+	color: lightcoral;
+}
+.t7{
+	color: pink;
+}
+.t8{
+	color: brown;
+}
+
+.chart{
+	position: absolute;
+	font-family: 'Fira Code', monospace;
+	top: 50%;
+	left: 90%;
+	transform: translate(-50%,-50%);
+	width: 33ch;
+}
+
+.chart > p{
+	text-align: justify;
+	color: white;
+}
+
+.chart > span {
+	font-size: 2.5em;
 }
 
 @keyframes background-pan{

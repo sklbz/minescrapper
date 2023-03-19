@@ -11,13 +11,12 @@ let cases = [
 	[0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0]
 ];
+const colors = ['white','blue', 'green', 'steelblue', 'purple', 'yellow', 'lightcoral', 'pink', 'brown']
 let bombsCount = 0;
 
 const reveal = el => {
   el.classList.replace("masked", "revealed");
-	el.removeEventListener('click', () => {
-		reveal(el);
-	});
+	el.style.setProperty("--bg-color", colors[el.dataset.bombAround]);
 }
 
 const init = () => {
@@ -66,5 +65,5 @@ notBombs.forEach(e => {
 		}
 	}
 	e.dataset.bombAround = bombAround;
-	e.before.innerText = `${bombAround}`;
+	e.innerText = `${bombAround}`;
 })
