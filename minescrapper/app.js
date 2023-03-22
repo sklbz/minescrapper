@@ -15,6 +15,9 @@ const colors = ['white', 'blue', 'green', 'steelblue', 'purple', 'yellow', 'ligh
 let bombsCount = 0;
 
 const reveal = el => {
+	if (el.dataset.bombAround === 0) {
+		console.log("white");
+	}
 	el.classList.replace("masked", "revealed");
 	el.style.setProperty("--bg-color", colors[el.dataset.bombAround]);
 }
