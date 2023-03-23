@@ -1,5 +1,17 @@
 const game = document.querySelector('.game');
-let casesValues = [
+let tiles = [
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null]
+];
+let tilesValues = [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -32,7 +44,7 @@ const init = () => {
 		const x = i % 10;
 		if (Math.floor(Math.random() * 10) === 1) {
 			div.classList.add('bomb');
-			casesValues[y][x] = -1;
+			tilesValues[y][x] = -1;
 			bombsCount++
 			div.addEventListener('click', () => {
 				alert("💣 Game Over 💣");
@@ -56,9 +68,9 @@ const init = () => {
 		let bombAround = 0;
 		for (let i = -1; i <= 1; i++) {
 			for (let j = -1; j <= 1; j++) {
-				if (casesValues[y + i] != undefined) {
-					if (casesValues[y + i][x + j] != undefined) {
-						if (casesValues[y + i][x + j] === -1) bombAround++;
+				if (tilesValues[y + i] != undefined) {
+					if (tilesValues[y + i][x + j] != undefined) {
+						if (tilesValues[y + i][x + j] === -1) bombAround++;
 					}
 				}
 			}
