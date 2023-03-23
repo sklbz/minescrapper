@@ -26,10 +26,7 @@ let tilesValues = [
 const colors = ['white', 'blue', 'green', 'steelblue', 'purple', 'yellow', 'lightcoral', 'pink', 'brown']
 let bombsCount = 0;
 
-const reveal = el => {
-	if (el.dataset.bombAround === 0) {
-		console.log("white");
-	}
+const reveal = (el,x,y) => {
 	el.classList.replace("masked", "revealed");
 	el.style.setProperty("--bg-color", colors[el.dataset.bombAround]);
 }
@@ -42,6 +39,7 @@ const init = () => {
 		div.dataset.index = i;
 		const y = (Math.floor(i / 10) > i / 10) ? Math.floor(i / 10) - 1 : Math.floor(i / 10);
 		const x = i % 10;
+		tiles[y][x] = div;
 		if (Math.floor(Math.random() * 10) === 1) {
 			div.classList.add('bomb');
 			tilesValues[y][x] = -1;
@@ -52,7 +50,7 @@ const init = () => {
 			});
 		} else {
 			div.addEventListener('click', () => {
-				reveal(div);
+				reveal(div, x, y);
 			});
 			div.dataset.x = x;
 			div.dataset.y = y;
@@ -77,6 +75,7 @@ const init = () => {
 		}
 		e.dataset.bombAround = bombAround;
 	})
+	console.log(tiles)
 
 	setInterval(() => {
 		const masked = document.querySelectorAll(".masked");
