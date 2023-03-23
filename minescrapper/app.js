@@ -26,9 +26,23 @@ let tilesValues = [
 const colors = ['white', 'blue', 'green', 'steelblue', 'purple', 'yellow', 'lightcoral', 'pink', 'brown']
 let bombsCount = 0;
 
-const reveal = (el,x,y) => {
+const reveal = (el,bomb, x, y) => {
 	el.classList.replace("masked", "revealed");
 	el.style.setProperty("--bg-color", colors[el.dataset.bombAround]);
+	if (bomb === 0) {
+		for (let i = -1; i <= 1; i++) {
+			for (let j = -1; j <= 1; j++) {
+				if (tiles[y + i] != undefined) {
+					if (tiles[y + i][x + j] != undefined) {
+						setTimeout(() => {
+							const e = tiles[y + i][x + j]
+							reveal(e, e.dataset.bombAround, e.dataset.x, e.dataset.y)
+						}, 100)
+					}
+				}
+			}
+		}
+	} 
 }
 
 const init = () => {
@@ -48,13 +62,9 @@ const init = () => {
 				alert("💣 Game Over 💣");
 				init();
 			});
-		} else {
-			div.addEventListener('click', () => {
-				reveal(div, x, y);
-			});
-			div.dataset.x = x;
-			div.dataset.y = y;
 		}
+		div.dataset.x = x;
+		div.dataset.y = y;
 		game.appendChild(div);
 	}
 	const divs = document.querySelectorAll(".masked");
@@ -74,6 +84,9 @@ const init = () => {
 			}
 		}
 		e.dataset.bombAround = bombAround;
+		e.addEventListener('click', () => {
+			reveal(e, bombAround, x, y);
+		});
 	})
 	console.log(tiles)
 
