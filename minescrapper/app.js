@@ -55,7 +55,7 @@ const init = () => {
 		const y = (Math.floor(i / 10) > i / 10) ? Math.floor(i / 10) - 1 : Math.floor(i / 10);
 		const x = i % 10;
 		tiles[y][x] = div;
-		if (Math.floor(Math.random() * 5) === 1) {
+		if (Math.floor(Math.random() * 5) === 100) {
 			div.classList.add('bomb');
 			tilesValues[y][x] = -1;
 			bombsCount++
@@ -72,6 +72,7 @@ const init = () => {
 	const notBombs = Array.from(divs).filter(el => !el.classList.contains("bomb"));
 
 	notBombs.forEach(e => {
+		e.dataset.bombAround = 0;
 		const y = Number(e.dataset.y);
 		const x = Number(e.dataset.x);
 		let bombAround = 0;
@@ -89,7 +90,6 @@ const init = () => {
 			reveal(e, bombAround, x, y);
 		});
 	})
-	console.log(tiles)
 
 	setInterval(() => {
 		const masked = document.querySelectorAll(".masked");
