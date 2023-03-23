@@ -27,13 +27,14 @@ const colors = ['white', 'blue', 'green', 'steelblue', 'purple', 'yellow', 'ligh
 let bombsCount = 0;
 
 const reveal = (el,bomb, x, y) => {
+	console.log(bomb)
 	el.classList.replace("masked", "revealed");
 	el.style.setProperty("--bg-color", colors[el.dataset.bombAround]);
 	if (bomb === 0) {
 		for (let i = -1; i <= 1; i++) {
 			for (let j = -1; j <= 1; j++) {
 				if (tiles[y + i] != undefined) {
-					if (tiles[y + i][x + j] != undefined) {
+					if (tiles[y + i][x + j] != undefined && tiles[y+i][x+j] != el) {
 						setTimeout(() => {
 							const e = tiles[y + i][x + j]
 							reveal(e, e.dataset.bombAround, e.dataset.x, e.dataset.y)
@@ -54,7 +55,7 @@ const init = () => {
 		const y = (Math.floor(i / 10) > i / 10) ? Math.floor(i / 10) - 1 : Math.floor(i / 10);
 		const x = i % 10;
 		tiles[y][x] = div;
-		if (Math.floor(Math.random() * 10) === 1) {
+		if (Math.floor(Math.random() * 5) === 1) {
 			div.classList.add('bomb');
 			tilesValues[y][x] = -1;
 			bombsCount++
